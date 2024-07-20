@@ -1,0 +1,89 @@
+package com.shortcuts;
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * GetRecords class call this constructor passing HashMap of fileMenus
+ */
+public class PrepareGUI
+{
+
+    SystemTray st;
+    PopupMenu pop;
+    Menu file;
+    Menu browser;
+    HashMap<String,String> browserMenus;
+    HashMap<String,String> fileMenus;
+
+   public PrepareGUI(HashMap<String,String> fileMenus)
+    {
+        pop=new PopupMenu();
+        file = new Menu("File");
+        browser = new Menu("Browser");
+
+        Tray t=new Tray();
+
+        if(t.checktraypresence())
+        {
+            st=SystemTray.getSystemTray();
+
+
+            pop.add(file);
+            pop.add(browser);
+
+            if( ! fileMenus.isEmpty())
+                addfiles(fileMenus);
+
+            t.addicon(pop,st);
+
+        }
+
+
+    }
+
+    /**
+     * Creates new MenuItems dynamically and sets them a name fetched from Map and adds on the File Menu
+     * @param fil
+     */
+     public void addfiles(HashMap<String,String> fil)
+    {
+        fileMenus=fil;
+        for(Map.Entry<String,String> m : fil.entrySet())
+        {
+            file.add( new MenuItem(m.getKey()));
+
+            System.out.println(m.getKey());
+        }
+
+        int count=file.getItemCount();
+        System.out.println(count);
+
+
+
+            // Add Action listener to every menu item
+            for(int i=0;i<count;i++)
+            {
+                file.getItem(i).addActionListener(new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        String name=e.getActionCommand();
+                        AWTDesktop.getpath(name,fileMenus);
+                    }
+                });
+            }
+
+
+
+
+    }
+
+
+
+}

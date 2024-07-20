@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Shortcut:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Shortcut_jar</output-path>
+    <root id="archive" name="Shortcut.jar">
+      <element id="module-output" name="Shortcut" />
+      <element id="extracted-dir" path="F:/Jar/sqlite-jdbc-3.20.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
